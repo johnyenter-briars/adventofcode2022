@@ -1,9 +1,6 @@
-use std::{
-    collections::HashMap,
-    error::Error,
-    fs::File,
-    io::{self, BufRead},
-};
+use std::{collections::HashMap, error::Error};
+
+use crate::util::reading::read_lines;
 
 pub fn find_total_score_part1(path: &str) -> Result<i32, Box<dyn Error>> {
     let winning_combination: Vec<(&str, &str)> = vec![
@@ -20,10 +17,8 @@ pub fn find_total_score_part1(path: &str) -> Result<i32, Box<dyn Error>> {
 
     let score_of_choice: HashMap<&str, i32> = HashMap::from([("X", 1), ("Y", 2), ("Z", 3)]);
 
-    let file = File::open(path)?;
-
     let mut current_score = 0;
-    for line in io::BufReader::new(file).lines() {
+    for line in read_lines(path)? {
         let line = line?;
         if line.len() == 0 {
             break;
@@ -55,10 +50,8 @@ pub fn find_total_score_part2(path: &str) -> Result<i32, Box<dyn Error>> {
 
     let score_of_choice: HashMap<&str, i32> = HashMap::from([("X", 1), ("Y", 2), ("Z", 3)]);
 
-    let file = File::open(path)?;
-
     let mut current_score = 0;
-    for line in io::BufReader::new(file).lines() {
+    for line in read_lines(path)? {
         let line = line?;
         if line.len() == 0 {
             break;

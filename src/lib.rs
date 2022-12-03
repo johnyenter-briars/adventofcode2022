@@ -4,6 +4,7 @@ use day2::day2::{find_total_score_part2, find_total_score_part1};
 pub mod day1;
 pub mod day2;
 pub mod day3;
+pub mod util;
 
 pub enum DayChoice {
     Day1,

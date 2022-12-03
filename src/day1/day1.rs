@@ -1,17 +1,14 @@
 use std::{
     error::Error,
-    fs::File,
-    io::{self, BufRead},
-    path::Path,
 };
+
+use crate::util::reading::read_lines;
 
 pub fn find_max_calories(path: &str) -> Result<i32, Box<dyn Error>> {
     let mut elfs: Vec<i32> = vec![];
 
-    let file = File::open(path)?;
-
     let mut current_elf_value = 0;
-    for line in io::BufReader::new(file).lines() {
+    for line in read_lines(path)? {
         let line = line?;
 
         if line.eq("") {
@@ -31,10 +28,8 @@ pub fn find_max_calories(path: &str) -> Result<i32, Box<dyn Error>> {
 pub fn find_sum_of_top_3_calories(path: &str) -> Result<i32, Box<dyn Error>> {
     let mut elfs: Vec<i32> = vec![];
 
-    let file = File::open(path)?;
-
     let mut current_elf_value = 0;
-    for line in io::BufReader::new(file).lines() {
+    for line in read_lines(path)? {
         let line = line?;
 
         if line.eq("") {
