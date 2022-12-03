@@ -20,13 +20,13 @@ pub fn find_total_score_part1(path: &str) -> Result<i32, Box<dyn Error>> {
     let mut current_score = 0;
     for line in read_lines(path)? {
         let line = line?;
-        if line.len() == 0 {
+        if line.is_empty() {
             break;
         }
 
         let (enemy_choice, my_choice) = line.split_at(1);
 
-        let my_choice = my_choice.replace(" ", "");
+        let my_choice = my_choice.replace(' ', "");
         let my_choice = my_choice.as_str();
 
         if winning_combination.contains(&(enemy_choice, my_choice)) {
@@ -53,12 +53,12 @@ pub fn find_total_score_part2(path: &str) -> Result<i32, Box<dyn Error>> {
     let mut current_score = 0;
     for line in read_lines(path)? {
         let line = line?;
-        if line.len() == 0 {
+        if line.is_empty() {
             break;
         }
 
         let (enemy_choice, objective) = line.split_at(1);
-        let objective = objective.replace(" ", "");
+        let objective = objective.replace(' ', "");
         let objective = objective.as_str();
 
         let mut score_of_round = 0;
