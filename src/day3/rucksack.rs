@@ -1,14 +1,40 @@
-use std::{error::Error, ops::Index};
+use std::{error::Error, ops::Index, vec};
 
 use crate::util::reading::read_lines;
 
 const PRIORITY_TABLE: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+pub fn sum_of_priorities_of_each_group_part2(path: &str) -> Result<i32, Box<dyn Error>> {
+    let mut group: Vec<String> = vec![];
+    let sum: i32 = read_lines(path)?
+        .iter()
+        .map(|s| s.clone())
+        .filter(|s| !s.is_empty())
+        .map(|line| {
+            group.push(line);
+            if group.len() == 3 {
+                let dup = get_item_in_all_three_sacks(&group[0], &group[1], &group[2])
+                    .expect("No dup found in all 3 sacks?");
+
+                let priority = get_priority_value(dup);
+
+                group.clear();
+
+                priority as i32
+            } else {
+                0
+            }
+        })
+        .collect::<Vec<i32>>()
+        .iter()
+        .sum();
+
+    Ok(sum)
+}
 
 pub fn sum_of_priorities_part1(path: &str) -> Result<i32, Box<dyn Error>> {
     Ok(read_lines(path)?
+        .iter()
         .filter_map(|line| {
-            let line = line.expect("Unable to create string");
-
             if line.is_empty() {
                 return Some(0);
             }
@@ -18,14 +44,7 @@ pub fn sum_of_priorities_part1(path: &str) -> Result<i32, Box<dyn Error>> {
             let matching_item = get_item_in_both_sacks(left_sack, right_sack)
                 .expect("No matching item found in both sacks??");
 
-            let priority = make_priority_table()
-                .iter()
-                .position(|c| *c == matching_item)
-                .expect(&format!(
-                    "Value: {} is not found in the priority table!",
-                    matching_item
-                ))
-                + 1;
+            let priority = get_priority_value(matching_item);
 
             Some(priority)
         })
@@ -35,14 +54,33 @@ pub fn sum_of_priorities_part1(path: &str) -> Result<i32, Box<dyn Error>> {
 }
 
 fn get_item_in_both_sacks(left_sack: &str, right_sack: &str) -> Option<char> {
-    let idk = left_sack
+    let duplicates = left_sack
         .chars()
         .filter(|c| right_sack.contains(*c))
         .collect::<Vec<char>>();
 
-    idk.first().copied()
+    duplicates.first().copied()
 }
 
-fn make_priority_table() -> Vec<char> {
-    PRIORITY_TABLE.chars().collect()
+fn get_item_in_all_three_sacks(left_sack: &str, mid_sack: &str, right_sack: &str) -> Option<char> {
+    let dups = left_sack
+        .chars()
+        .filter(|c| mid_sack.contains(*c))
+        .filter(|c| right_sack.contains(*c))
+        .collect::<Vec<char>>();
+
+    dups.first().copied()
+}
+
+fn get_priority_value(matching_item: char) -> usize {
+    PRIORITY_TABLE
+        .chars()
+        .collect::<Vec<char>>()
+        .iter()
+        .position(|c| *c == matching_item)
+        .expect(&format!(
+            "Value: {} is not found in the priority table!",
+            matching_item
+        ))
+        + 1
 }

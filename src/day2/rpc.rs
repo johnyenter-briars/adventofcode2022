@@ -19,7 +19,6 @@ pub fn find_total_score_part1(path: &str) -> Result<i32, Box<dyn Error>> {
 
     let mut current_score = 0;
     for line in read_lines(path)? {
-        let line = line?;
         if line.is_empty() {
             break;
         }
@@ -52,7 +51,6 @@ pub fn find_total_score_part2(path: &str) -> Result<i32, Box<dyn Error>> {
 
     let mut current_score = 0;
     for line in read_lines(path)? {
-        let line = line?;
         if line.is_empty() {
             break;
         }

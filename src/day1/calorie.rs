@@ -9,8 +9,6 @@ pub fn find_max_calories(path: &str) -> Result<i32, Box<dyn Error>> {
 
     let mut current_elf_value = 0;
     for line in read_lines(path)? {
-        let line = line?;
-
         if line.eq("") {
             elfs.push(current_elf_value);
             current_elf_value = 0;
@@ -30,8 +28,6 @@ pub fn find_sum_of_top_3_calories(path: &str) -> Result<i32, Box<dyn Error>> {
 
     let mut current_elf_value = 0;
     for line in read_lines(path)? {
-        let line = line?;
-
         if line.eq("") {
             elfs.push(current_elf_value);
             current_elf_value = 0;
