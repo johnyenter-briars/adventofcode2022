@@ -1,5 +1,6 @@
-use day1::day1::{find_sum_of_top_3_calories, find_max_calories};
-use day2::day2::{find_total_score_part2, find_total_score_part1};
+use day1::calorie::{find_sum_of_top_3_calories, find_max_calories};
+use day2::rpc::{find_total_score_part2, find_total_score_part1};
+use day3::rucksack::sum_of_priorities_part1;
 
 pub mod day1;
 pub mod day2;
@@ -16,7 +17,7 @@ pub fn run_day(choice: DayChoice) {
     match choice {
         DayChoice::Day1 => day1(),
         DayChoice::Day2 => day2(),
-        DayChoice::Day3 => todo!(),
+        DayChoice::Day3 => day3(),
     };
 }
 
@@ -42,6 +43,14 @@ fn day2() {
 
     match find_total_score_part2(path) {
         Ok(total_score) => println!("The total score of part 2 is: {}", total_score),
+        Err(e) => println!("There was an error: {}", e),
+    }
+}
+
+fn day3() {
+    let path = "src/day3/input.txt";
+    match sum_of_priorities_part1(path) {
+        Ok(total_score) => println!("The sum of priorities part 1 is: {}", total_score),
         Err(e) => println!("There was an error: {}", e),
     }
 }
