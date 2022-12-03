@@ -1,25 +1,14 @@
 use std::{
     error::Error,
     fs::File,
-    io::{self, BufRead, Read},
+    io::{self, BufRead},
+    path::Path,
 };
 
-fn main() {
-    match find_max_calories() {
-        Ok(total_calories) => println!("The max elf is: {}", total_calories),
-        Err(e) => println!("There was an error: {}", e),
-    }
-
-    match find_sum_of_top_3_calories() {
-        Ok(top_3) => println!("The sum of the top 3 elfs are: {:?}", top_3),
-        Err(e) => println!("There was an error: {}", e),
-    }
-}
-
-fn find_max_calories() -> Result<i32, Box<dyn Error>> {
+pub fn find_max_calories(path: &str) -> Result<i32, Box<dyn Error>> {
     let mut elfs: Vec<i32> = vec![];
 
-    let file = File::open("data.txt")?;
+    let file = File::open(path)?;
 
     let mut current_elf_value = 0;
     for line in io::BufReader::new(file).lines() {
@@ -39,10 +28,10 @@ fn find_max_calories() -> Result<i32, Box<dyn Error>> {
     Ok(*max_elf)
 }
 
-fn find_sum_of_top_3_calories() -> Result<i32, Box<dyn Error>> {
+pub fn find_sum_of_top_3_calories(path: &str) -> Result<i32, Box<dyn Error>> {
     let mut elfs: Vec<i32> = vec![];
 
-    let file = File::open("data.txt")?;
+    let file = File::open(path)?;
 
     let mut current_elf_value = 0;
     for line in io::BufReader::new(file).lines() {

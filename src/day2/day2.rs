@@ -5,19 +5,7 @@ use std::{
     io::{self, BufRead},
 };
 
-fn main() {
-    match find_total_score_part1() {
-        Ok(total_score) => println!("The total score of part 1 is: {}", total_score),
-        Err(e) => println!("There was an error: {}", e),
-    }
-
-    match find_total_score_part2() {
-        Ok(total_score) => println!("The total score of part 2 is: {}", total_score),
-        Err(e) => println!("There was an error: {}", e),
-    }
-}
-
-fn find_total_score_part1() -> Result<i32, Box<dyn Error>> {
+pub fn find_total_score_part1(path: &str) -> Result<i32, Box<dyn Error>> {
     let winning_combination: Vec<(&str, &str)> = vec![
         ("A", "Y"), //rock, paper
         ("B", "Z"), //paper, scissors
@@ -32,7 +20,7 @@ fn find_total_score_part1() -> Result<i32, Box<dyn Error>> {
 
     let score_of_choice: HashMap<&str, i32> = HashMap::from([("X", 1), ("Y", 2), ("Z", 3)]);
 
-    let file = File::open("input.txt")?;
+    let file = File::open(path)?;
 
     let mut current_score = 0;
     for line in io::BufReader::new(file).lines() {
@@ -60,14 +48,14 @@ fn find_total_score_part1() -> Result<i32, Box<dyn Error>> {
     Ok(current_score)
 }
 
-fn find_total_score_part2() -> Result<i32, Box<dyn Error>> {
+pub fn find_total_score_part2(path: &str) -> Result<i32, Box<dyn Error>> {
     let inverse_winning: HashMap<&str, &str> = HashMap::from([("A", "Y"), ("B", "Z"), ("C", "X")]);
     let inverse_drawing: HashMap<&str, &str> = HashMap::from([("A", "X"), ("B", "Y"), ("C", "Z")]);
     let inverse_losing: HashMap<&str, &str> = HashMap::from([("A", "Z"), ("B", "X"), ("C", "Y")]);
 
     let score_of_choice: HashMap<&str, i32> = HashMap::from([("X", 1), ("Y", 2), ("Z", 3)]);
 
-    let file = File::open("input.txt")?;
+    let file = File::open(path)?;
 
     let mut current_score = 0;
     for line in io::BufReader::new(file).lines() {
