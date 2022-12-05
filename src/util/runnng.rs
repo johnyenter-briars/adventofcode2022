@@ -44,7 +44,7 @@ fn day3() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)>{
 }
 
 fn day4() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)>{
-    let path = "src/day3/test-input.txt";
+    let path = "src/day4/test-input.txt";
     vec![
         ("The sum of priorities part 2 is: ", idk(path)),
     ]
