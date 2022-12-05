@@ -1,3 +1,5 @@
+use std::error::Error;
+
 use crate::{
     day1::calorie::{find_max_calories, find_sum_of_top_3_calories},
     day2::rpc::{find_total_score_part1, find_total_score_part2},
@@ -6,59 +8,44 @@ use crate::{
 
 use super::day_choice::DayChoice;
 
-pub fn run_day(choice: DayChoice) {
+pub fn run_day(choice: DayChoice) -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
     match choice {
         DayChoice::Day1 => day1(),
         DayChoice::Day2 => day2(),
         DayChoice::Day3 => day3(),
         DayChoice::Day4 => day4(),
         DayChoice::Day5 => todo!(),
-    };
+    }
 }
 
-fn day1() {
+fn day1() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)>{
     let path = "src/day1/input.txt";
-    match find_max_calories(path) {
-        Ok(total_calories) => println!("The max elf is: {}", total_calories),
-        Err(e) => println!("There was an error: {}", e),
-    }
-
-    match find_sum_of_top_3_calories(path) {
-        Ok(top_3) => println!("The sum of the top 3 elfs are: {:?}", top_3),
-        Err(e) => println!("There was an error: {}", e),
-    }
+    vec![
+        ("The max elf is: ", find_max_calories(path)),
+        ("The sum of the top 3 elfs are:  ", find_sum_of_top_3_calories(path)),
+        
+    ]
 }
 
-fn day2() {
+fn day2() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)>{
     let path = "src/day2/input.txt";
-    match find_total_score_part1(path) {
-        Ok(total_score) => println!("The total score of part 1 is: {}", total_score),
-        Err(e) => println!("There was an error: {}", e),
-    }
-
-    match find_total_score_part2(path) {
-        Ok(total_score) => println!("The total score of part 2 is: {}", total_score),
-        Err(e) => println!("There was an error: {}", e),
-    }
+    vec![
+        ("The total score of part 1 is: ", find_total_score_part1(path)),
+        ("The total score of part 2 is:  ", find_total_score_part2(path)),
+    ]
 }
 
-fn day3() {
+fn day3() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)>{
     let path = "src/day3/input.txt";
-    match sum_of_priorities_part1(path) {
-        Ok(total_score) => println!("The sum of priorities part 1 is: {}", total_score),
-        Err(e) => println!("There was an error: {}", e),
-    }
-
-    match sum_of_priorities_of_each_group_part2(path) {
-        Ok(total_score) => println!("The sum of priorities part 2 is: {}", total_score),
-        Err(e) => println!("There was an error: {}", e),
-    }
+    vec![
+        ("The sum of priorities part 2 is: ", sum_of_priorities_part1(path)),
+        ("The sum of priorities part 2 is:  ", sum_of_priorities_of_each_group_part2(path)),
+    ]
 }
 
-fn day4() {
+fn day4() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)>{
     let path = "src/day3/test-input.txt";
-    match idk(path) {
-        Ok(total_score) => println!("The sum of priorities part 1 is: {}", total_score),
-        Err(e) => println!("There was an error: {}", e),
-    };
+    vec![
+        ("The sum of priorities part 2 is: ", idk(path)),
+    ]
 }
