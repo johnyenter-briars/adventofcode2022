@@ -1,5 +1,5 @@
-use adventofcode2022::{run_day, DayChoice};
+use adventofcode2022::util::{runnng::run_day, day_choice::DayChoice};
 
 fn main() {
-    run_day(DayChoice::Day3);
+    run_day(DayChoice::Day4);
 }

@@ -1,4 +1,4 @@
-use std::{error::Error, ops::Index, vec};
+use std::{error::Error, vec};
 
 use crate::util::reading::read_lines;
 

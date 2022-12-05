@@ -1,7 +1,7 @@
 use std::{
     error::Error,
     fs::File,
-    io::{self, BufRead, BufReader},
+    io::{self, BufRead},
 };
 pub fn read_lines(path: &str) -> Result<Vec<String>, Box<dyn Error>> {
     let file = File::open(path)?;
