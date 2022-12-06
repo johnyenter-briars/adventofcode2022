@@ -5,7 +5,7 @@ use crate::{
     day2::rpc::{find_total_score_part1, find_total_score_part2},
     day3::rucksack::{sum_of_priorities_of_each_group_part2, sum_of_priorities_part1},
     day4::campcleanup::{overlapping_full_pairs_part1, overlapping_part_of_pairs_part2},
-    day5::supply_stacks::supply_stacks_part1,
+    day5::supply_stacks::{supply_stacks_part1, supply_stacks_part2},
 };
 
 use super::day_choice::DayChoice;
@@ -74,8 +74,14 @@ fn day4() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
 }
 fn day5() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
     let path = "src/day5/input.txt";
-    vec![(
-        "crates on the top is: ",
-        supply_stacks_part1(path),
-    )]
+    vec![
+        (
+            "crates on the top in crane 9000 is: ",
+            supply_stacks_part1(path),
+        ),
+        (
+            "crates on the top in crane 9001 is: ",
+            supply_stacks_part2(path),
+        ),
+    ]
 }
