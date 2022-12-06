@@ -6,8 +6,7 @@ const PRIORITY_TABLE: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX
 pub fn sum_of_priorities_of_each_group_part2(path: &str) -> Result<String, Box<dyn Error>> {
     let mut group: Vec<String> = vec![];
     let sum: i32 = read_lines(path, true)?
-        .iter()
-        .map(|s| s.clone())
+        .iter().cloned()
         .map(|line| {
             group.push(line);
             if group.len() == 3 {
@@ -73,9 +72,7 @@ fn get_priority_value(matching_item: char) -> usize {
         .collect::<Vec<char>>()
         .iter()
         .position(|c| *c == matching_item)
-        .expect(&format!(
-            "Value: {} is not found in the priority table!",
-            matching_item
-        ))
+        .unwrap_or_else(|| panic!("Value: {} is not found in the priority table!",
+            matching_item))
         + 1
 }

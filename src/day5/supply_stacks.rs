@@ -67,7 +67,7 @@ pub fn supply_stacks_part1(path: &str) -> Result<String, Box<dyn Error>> {
 
     let v = stacks
         .iter()
-        .map(|s| s.last().unwrap().clone())
+        .map(|s| *s.last().unwrap())
         .collect::<Vec<char>>();
 
     let s = String::from_iter(v);
@@ -143,7 +143,7 @@ pub fn supply_stacks_part2(path: &str) -> Result<String, Box<dyn Error>> {
 
     let v = stacks
         .iter()
-        .map(|s| s.last().unwrap().clone())
+        .map(|s| *s.last().unwrap())
         .collect::<Vec<char>>();
 
     let s = String::from_iter(v);

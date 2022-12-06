@@ -7,10 +7,10 @@ pub fn overlapping_full_pairs_part1(path: &str) -> Result<String, Box<dyn Error>
         .iter()
         .filter(|s| !s.is_empty())
         .filter_map(|line| {
-            let pairs = line.split(",").collect::<Vec<&str>>();
+            let pairs = line.split(',').collect::<Vec<&str>>();
 
-            let pair1 = pairs[0].split("-").collect::<Vec<&str>>();
-            let pair2 = pairs[1].split("-").collect::<Vec<&str>>();
+            let pair1 = pairs[0].split('-').collect::<Vec<&str>>();
+            let pair2 = pairs[1].split('-').collect::<Vec<&str>>();
 
             let pair1_l = pair1[0];
             let pair1_u = pair1[1];
@@ -42,10 +42,10 @@ pub fn overlapping_part_of_pairs_part2(path: &str) -> Result<String, Box<dyn Err
         .iter()
         .into_iter()
         .filter_map(|line| {
-            let pairs = line.split(",").collect::<Vec<&str>>();
+            let pairs = line.split(',').collect::<Vec<&str>>();
 
-            let pair1 = pairs[0].split("-").collect::<Vec<&str>>();
-            let pair2 = pairs[1].split("-").collect::<Vec<&str>>();
+            let pair1 = pairs[0].split('-').collect::<Vec<&str>>();
+            let pair2 = pairs[1].split('-').collect::<Vec<&str>>();
 
             let pair1_l = pair1[0];
             let pair1_u = pair1[1];

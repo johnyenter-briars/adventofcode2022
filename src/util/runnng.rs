@@ -1,6 +1,5 @@
 use std::{
     error::Error,
-    path::{self, Path},
 };
 
 use crate::{
@@ -9,7 +8,7 @@ use crate::{
     day3::rucksack::{sum_of_priorities_of_each_group_part2, sum_of_priorities_part1},
     day4::campcleanup::{overlapping_full_pairs_part1, overlapping_part_of_pairs_part2},
     day5::supply_stacks::{supply_stacks_part1, supply_stacks_part2},
-    day6::turning_trouble::{self, turning_trouble_part1},
+    day6::turning_trouble::{turning_trouble_part1},
 };
 
 use super::day_choice::DayChoice;
