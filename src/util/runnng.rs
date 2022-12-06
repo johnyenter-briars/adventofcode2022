@@ -11,12 +11,14 @@ use crate::{
     day6::turning_trouble::{turning_trouble_part1},
 };
 
+type DayResult = Vec<(&'static str, Result<String, Box<dyn Error>>)>;
+
 use super::day_choice::DayChoice;
 
 pub fn run_day(
     choice: DayChoice,
     use_test_data: bool,
-) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+) -> DayResult {
     match choice {
         DayChoice::Day1 => day1(use_test_data),
         DayChoice::Day2 => day2(use_test_data),
@@ -46,7 +48,7 @@ pub fn run_day(
     }
 }
 
-fn day1(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+fn day1(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day1", use_test_data);
     vec![
         ("The max elf is: ", find_max_calories(path)),
@@ -57,7 +59,7 @@ fn day1(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>
     ]
 }
 
-fn day2(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+fn day2(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day2", use_test_data);
     vec![
         (
@@ -71,7 +73,7 @@ fn day2(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>
     ]
 }
 
-fn day3(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+fn day3(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day3", use_test_data);
     vec![
         (
@@ -85,7 +87,7 @@ fn day3(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>
     ]
 }
 
-fn day4(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+fn day4(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day4", use_test_data);
     vec![
         (
@@ -98,7 +100,7 @@ fn day4(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>
         ),
     ]
 }
-fn day5(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+fn day5(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day5", use_test_data);
     vec![
         (
@@ -112,7 +114,7 @@ fn day5(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>
     ]
 }
 
-fn day6(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+fn day6(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day6", use_test_data);
     vec![("idk is: ", turning_trouble_part1(path))]
 }
