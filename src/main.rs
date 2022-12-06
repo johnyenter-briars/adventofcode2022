@@ -1,7 +1,7 @@
 use adventofcode2022::util::{day_choice::DayChoice, runnng::run_day};
 
 fn main() {
-    let choice = DayChoice::Day4;
+    let choice = DayChoice::Day5;
     println!("Runing for day: {:?}", choice);
     for part in run_day(choice) {
         match part.1 {
