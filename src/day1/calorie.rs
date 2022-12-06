@@ -4,7 +4,7 @@ use std::{
 
 use crate::util::reading::read_lines;
 
-pub fn find_max_calories(path: &str) -> Result<i32, Box<dyn Error>> {
+pub fn find_max_calories(path: &str) -> Result<String, Box<dyn Error>> {
     let mut elfs: Vec<i32> = vec![];
 
     let mut current_elf_value = 0;
@@ -20,10 +20,10 @@ pub fn find_max_calories(path: &str) -> Result<i32, Box<dyn Error>> {
 
     let max_elf = elfs.iter().max().expect("No biggest");
 
-    Ok(*max_elf)
+    Ok(max_elf.to_string())
 }
 
-pub fn find_sum_of_top_3_calories(path: &str) -> Result<i32, Box<dyn Error>> {
+pub fn find_sum_of_top_3_calories(path: &str) -> Result<String, Box<dyn Error>> {
     let mut elfs: Vec<i32> = vec![];
 
     let mut current_elf_value = 0;
@@ -51,5 +51,5 @@ pub fn find_sum_of_top_3_calories(path: &str) -> Result<i32, Box<dyn Error>> {
 
     let sum = top_3[0] + top_3[1] + top_3[2];
 
-    Ok(sum)
+    Ok(sum.to_string())
 }

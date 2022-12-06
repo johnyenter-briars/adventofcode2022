@@ -10,7 +10,7 @@ use crate::{
 
 use super::day_choice::DayChoice;
 
-pub fn run_day(choice: DayChoice) -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
+pub fn run_day(choice: DayChoice) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
     match choice {
         DayChoice::Day1 => day1(),
         DayChoice::Day2 => day2(),
@@ -20,7 +20,7 @@ pub fn run_day(choice: DayChoice) -> Vec<(&'static str, Result<i32, Box<dyn Erro
     }
 }
 
-fn day1() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
+fn day1() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
     let path = "src/day1/input.txt";
     vec![
         ("The max elf is: ", find_max_calories(path)),
@@ -31,7 +31,7 @@ fn day1() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
     ]
 }
 
-fn day2() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
+fn day2() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
     let path = "src/day2/input.txt";
     vec![
         (
@@ -45,7 +45,7 @@ fn day2() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
     ]
 }
 
-fn day3() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
+fn day3() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
     let path = "src/day3/input.txt";
     vec![
         (
@@ -59,7 +59,7 @@ fn day3() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
     ]
 }
 
-fn day4() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
+fn day4() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
     let path = "src/day4/input.txt";
     vec![
         (
@@ -72,10 +72,10 @@ fn day4() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
         ),
     ]
 }
-fn day5() -> Vec<(&'static str, Result<i32, Box<dyn Error>>)> {
-    let path = "src/day5/test-input.txt";
+fn day5() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+    let path = "src/day5/input.txt";
     vec![(
-        "The number of pairs in which one contains the other is: ",
+        "crates on the top is: ",
         supply_stacks_part1(path),
     )]
 }

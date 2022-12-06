@@ -2,7 +2,7 @@ use std::{collections::HashMap, error::Error};
 
 use crate::util::reading::read_lines;
 
-pub fn find_total_score_part1(path: &str) -> Result<i32, Box<dyn Error>> {
+pub fn find_total_score_part1(path: &str) -> Result<String, Box<dyn Error>> {
     let winning_combination: Vec<(&str, &str)> = vec![
         ("A", "Y"), //rock, paper
         ("B", "Z"), //paper, scissors
@@ -39,10 +39,10 @@ pub fn find_total_score_part1(path: &str) -> Result<i32, Box<dyn Error>> {
         current_score += score_of_choice[my_choice];
     }
 
-    Ok(current_score)
+    Ok(current_score.to_string())
 }
 
-pub fn find_total_score_part2(path: &str) -> Result<i32, Box<dyn Error>> {
+pub fn find_total_score_part2(path: &str) -> Result<String, Box<dyn Error>> {
     let inverse_winning: HashMap<&str, &str> = HashMap::from([("A", "Y"), ("B", "Z"), ("C", "X")]);
     let inverse_drawing: HashMap<&str, &str> = HashMap::from([("A", "X"), ("B", "Y"), ("C", "Z")]);
     let inverse_losing: HashMap<&str, &str> = HashMap::from([("A", "Z"), ("B", "X"), ("C", "Y")]);
@@ -81,5 +81,5 @@ pub fn find_total_score_part2(path: &str) -> Result<i32, Box<dyn Error>> {
         current_score += score_of_round;
     }
 
-    Ok(current_score)
+    Ok(current_score.to_string())
 }

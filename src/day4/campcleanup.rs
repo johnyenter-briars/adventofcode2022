@@ -2,7 +2,7 @@ use std::error::Error;
 
 use crate::util::reading::read_lines;
 
-pub fn overlapping_full_pairs_part1(path: &str) -> Result<i32, Box<dyn Error>> {
+pub fn overlapping_full_pairs_part1(path: &str) -> Result<String, Box<dyn Error>> {
     let pairs = read_lines(path)?
         .iter()
         .into_iter()
@@ -35,10 +35,10 @@ pub fn overlapping_full_pairs_part1(path: &str) -> Result<i32, Box<dyn Error>> {
         })
         .collect::<Vec<bool>>();
 
-    Ok(pairs.len() as i32)
+    Ok(pairs.len().to_string())
 }
 
-pub fn overlapping_part_of_pairs_part2(path: &str) -> Result<i32, Box<dyn Error>> {
+pub fn overlapping_part_of_pairs_part2(path: &str) -> Result<String, Box<dyn Error>> {
     let pairs = read_lines(path)?
         .iter()
         .into_iter()
@@ -75,5 +75,5 @@ pub fn overlapping_part_of_pairs_part2(path: &str) -> Result<i32, Box<dyn Error>
         })
         .collect::<Vec<bool>>();
 
-    Ok(pairs.len() as i32)
+    Ok(pairs.len().to_string())
 }
