@@ -1,6 +1,4 @@
-use std::{
-    error::Error,
-};
+use std::error::Error;
 
 use crate::{
     day1::calorie::{find_max_calories, find_sum_of_top_3_calories},
@@ -8,17 +6,14 @@ use crate::{
     day3::rucksack::{sum_of_priorities_of_each_group_part2, sum_of_priorities_part1},
     day4::campcleanup::{overlapping_full_pairs_part1, overlapping_part_of_pairs_part2},
     day5::supply_stacks::{supply_stacks_part1, supply_stacks_part2},
-    day6::turning_trouble::{turning_trouble_part1},
+    day6::turning_trouble::find_start_of_message_marker,
 };
 
 type DayResult = Vec<(&'static str, Result<String, Box<dyn Error>>)>;
 
 use super::day_choice::DayChoice;
 
-pub fn run_day(
-    choice: DayChoice,
-    use_test_data: bool,
-) -> DayResult {
+pub fn run_day(choice: DayChoice, use_test_data: bool) -> DayResult {
     match choice {
         DayChoice::Day1 => day1(use_test_data),
         DayChoice::Day2 => day2(use_test_data),
@@ -116,7 +111,16 @@ fn day5(use_test_data: bool) -> DayResult {
 
 fn day6(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day6", use_test_data);
-    vec![("idk is: ", turning_trouble_part1(path))]
+    vec![
+        (
+            "chars before the first marker of size 4: ",
+            find_start_of_message_marker(path, 4),
+        ),
+        (
+            "chars before the first marker of size 14: ",
+            find_start_of_message_marker(path, 14),
+        ),
+    ]
 }
 
 fn get_data_path(day: &str, use_test_data: bool) -> String {
