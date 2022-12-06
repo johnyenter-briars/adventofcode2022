@@ -3,7 +3,7 @@ use std::{error::Error, vec};
 use crate::util::reading::read_lines;
 
 const PRIORITY_TABLE: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-pub fn sum_of_priorities_of_each_group_part2(path: &str) -> Result<i32, Box<dyn Error>> {
+pub fn sum_of_priorities_of_each_group_part2(path: &str) -> Result<String, Box<dyn Error>> {
     let mut group: Vec<String> = vec![];
     let sum: i32 = read_lines(path)?
         .iter()
@@ -28,10 +28,10 @@ pub fn sum_of_priorities_of_each_group_part2(path: &str) -> Result<i32, Box<dyn 
         .iter()
         .sum();
 
-    Ok(sum)
+    Ok(sum.to_string())
 }
 
-pub fn sum_of_priorities_part1(path: &str) -> Result<i32, Box<dyn Error>> {
+pub fn sum_of_priorities_part1(path: &str) -> Result<String, Box<dyn Error>> {
     Ok(read_lines(path)?
         .iter()
         .filter_map(|line| {
@@ -50,7 +50,7 @@ pub fn sum_of_priorities_part1(path: &str) -> Result<i32, Box<dyn Error>> {
         })
         .collect::<Vec<usize>>()
         .iter()
-        .sum::<usize>() as i32)
+        .sum::<usize>().to_string())
 }
 
 fn get_item_in_both_sacks(left_sack: &str, right_sack: &str) -> Option<char> {
