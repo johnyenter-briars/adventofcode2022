@@ -1,4 +1,7 @@
-use std::error::Error;
+use std::{
+    error::Error,
+    path::{self, Path},
+};
 
 use crate::{
     day1::calorie::{find_max_calories, find_sum_of_top_3_calories},
@@ -6,22 +9,46 @@ use crate::{
     day3::rucksack::{sum_of_priorities_of_each_group_part2, sum_of_priorities_part1},
     day4::campcleanup::{overlapping_full_pairs_part1, overlapping_part_of_pairs_part2},
     day5::supply_stacks::{supply_stacks_part1, supply_stacks_part2},
+    day6::turning_trouble::{self, turning_trouble_part1},
 };
 
 use super::day_choice::DayChoice;
 
-pub fn run_day(choice: DayChoice) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+pub fn run_day(
+    choice: DayChoice,
+    use_test_data: bool,
+) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
     match choice {
-        DayChoice::Day1 => day1(),
-        DayChoice::Day2 => day2(),
-        DayChoice::Day3 => day3(),
-        DayChoice::Day4 => day4(),
-        DayChoice::Day5 => day5(),
+        DayChoice::Day1 => day1(use_test_data),
+        DayChoice::Day2 => day2(use_test_data),
+        DayChoice::Day3 => day3(use_test_data),
+        DayChoice::Day4 => day4(use_test_data),
+        DayChoice::Day5 => day5(use_test_data),
+        DayChoice::Day6 => day6(use_test_data),
+        DayChoice::Day7 => todo!(),
+        DayChoice::Day8 => todo!(),
+        DayChoice::Day9 => todo!(),
+        DayChoice::Day10 => todo!(),
+        DayChoice::Day11 => todo!(),
+        DayChoice::Day12 => todo!(),
+        DayChoice::Day13 => todo!(),
+        DayChoice::Day14 => todo!(),
+        DayChoice::Day15 => todo!(),
+        DayChoice::Day16 => todo!(),
+        DayChoice::Day17 => todo!(),
+        DayChoice::Day18 => todo!(),
+        DayChoice::Day19 => todo!(),
+        DayChoice::Day20 => todo!(),
+        DayChoice::Day21 => todo!(),
+        DayChoice::Day22 => todo!(),
+        DayChoice::Day23 => todo!(),
+        DayChoice::Day24 => todo!(),
+        DayChoice::Day25 => todo!(),
     }
 }
 
-fn day1() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
-    let path = "src/day1/input.txt";
+fn day1(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+    let path = &get_data_path("day1", use_test_data);
     vec![
         ("The max elf is: ", find_max_calories(path)),
         (
@@ -31,8 +58,8 @@ fn day1() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
     ]
 }
 
-fn day2() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
-    let path = "src/day2/input.txt";
+fn day2(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+    let path = &get_data_path("day2", use_test_data);
     vec![
         (
             "The total score of part 1 is: ",
@@ -45,8 +72,8 @@ fn day2() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
     ]
 }
 
-fn day3() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
-    let path = "src/day3/input.txt";
+fn day3(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+    let path = &get_data_path("day3", use_test_data);
     vec![
         (
             "The sum of priorities part 2 is: ",
@@ -59,8 +86,8 @@ fn day3() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
     ]
 }
 
-fn day4() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
-    let path = "src/day4/input.txt";
+fn day4(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+    let path = &get_data_path("day4", use_test_data);
     vec![
         (
             "The number of pairs in which one contains the other is: ",
@@ -72,8 +99,8 @@ fn day4() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
         ),
     ]
 }
-fn day5() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
-    let path = "src/day5/input.txt";
+fn day5(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+    let path = &get_data_path("day5", use_test_data);
     vec![
         (
             "crates on the top in crane 9000 is: ",
@@ -84,4 +111,17 @@ fn day5() -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
             supply_stacks_part2(path),
         ),
     ]
+}
+
+fn day6(use_test_data: bool) -> Vec<(&'static str, Result<String, Box<dyn Error>>)> {
+    let path = &get_data_path("day6", use_test_data);
+    vec![("idk is: ", turning_trouble_part1(path))]
+}
+
+fn get_data_path(day: &str, use_test_data: bool) -> String {
+    if use_test_data {
+        format!("src/{}/test-input.txt", day)
+    } else {
+        format!("src/{}/input.txt", day)
+    }
 }
