@@ -18,11 +18,7 @@ pub fn find_total_score_part1(path: &str) -> Result<String, Box<dyn Error>> {
     let score_of_choice: HashMap<&str, i32> = HashMap::from([("X", 1), ("Y", 2), ("Z", 3)]);
 
     let mut current_score = 0;
-    for line in read_lines(path)? {
-        if line.is_empty() {
-            break;
-        }
-
+    for line in read_lines(path, true)? {
         let (enemy_choice, my_choice) = line.split_at(1);
 
         let my_choice = my_choice.replace(' ', "");
@@ -50,11 +46,7 @@ pub fn find_total_score_part2(path: &str) -> Result<String, Box<dyn Error>> {
     let score_of_choice: HashMap<&str, i32> = HashMap::from([("X", 1), ("Y", 2), ("Z", 3)]);
 
     let mut current_score = 0;
-    for line in read_lines(path)? {
-        if line.is_empty() {
-            break;
-        }
-
+    for line in read_lines(path, true)? {
         let (enemy_choice, objective) = line.split_at(1);
         let objective = objective.replace(' ', "");
         let objective = objective.as_str();

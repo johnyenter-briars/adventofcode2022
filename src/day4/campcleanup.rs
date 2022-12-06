@@ -3,9 +3,8 @@ use std::error::Error;
 use crate::util::reading::read_lines;
 
 pub fn overlapping_full_pairs_part1(path: &str) -> Result<String, Box<dyn Error>> {
-    let pairs = read_lines(path)?
+    let pairs = read_lines(path, true)?
         .iter()
-        .into_iter()
         .filter(|s| !s.is_empty())
         .filter_map(|line| {
             let pairs = line.split(",").collect::<Vec<&str>>();
@@ -39,10 +38,9 @@ pub fn overlapping_full_pairs_part1(path: &str) -> Result<String, Box<dyn Error>
 }
 
 pub fn overlapping_part_of_pairs_part2(path: &str) -> Result<String, Box<dyn Error>> {
-    let pairs = read_lines(path)?
+    let pairs = read_lines(path, true)?
         .iter()
         .into_iter()
-        .filter(|s| !s.is_empty())
         .filter_map(|line| {
             let pairs = line.split(",").collect::<Vec<&str>>();
 

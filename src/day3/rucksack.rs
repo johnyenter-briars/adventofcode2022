@@ -5,10 +5,9 @@ use crate::util::reading::read_lines;
 const PRIORITY_TABLE: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 pub fn sum_of_priorities_of_each_group_part2(path: &str) -> Result<String, Box<dyn Error>> {
     let mut group: Vec<String> = vec![];
-    let sum: i32 = read_lines(path)?
+    let sum: i32 = read_lines(path, true)?
         .iter()
         .map(|s| s.clone())
-        .filter(|s| !s.is_empty())
         .map(|line| {
             group.push(line);
             if group.len() == 3 {
@@ -32,13 +31,9 @@ pub fn sum_of_priorities_of_each_group_part2(path: &str) -> Result<String, Box<d
 }
 
 pub fn sum_of_priorities_part1(path: &str) -> Result<String, Box<dyn Error>> {
-    Ok(read_lines(path)?
+    Ok(read_lines(path, true)?
         .iter()
         .filter_map(|line| {
-            if line.is_empty() {
-                return Some(0);
-            }
-
             let (left_sack, right_sack) = line.split_at(line.len() / 2);
 
             let matching_item = get_item_in_both_sacks(left_sack, right_sack)

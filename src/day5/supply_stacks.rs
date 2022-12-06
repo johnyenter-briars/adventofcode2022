@@ -1,4 +1,4 @@
-use std::{error::Error, num, vec};
+use std::{error::Error, vec};
 
 use regex::Regex;
 
@@ -7,7 +7,7 @@ use crate::util::reading::read_lines;
 pub fn supply_stacks_part1(path: &str) -> Result<String, Box<dyn Error>> {
     let mut temp_stacks: Vec<Vec<char>> = vec![];
 
-    let raw_lines = read_lines(path)?;
+    let raw_lines = read_lines(path, false)?;
     let mut lines = raw_lines.iter().peekable();
 
     while lines.peek().is_some() {
@@ -78,7 +78,7 @@ pub fn supply_stacks_part1(path: &str) -> Result<String, Box<dyn Error>> {
 pub fn supply_stacks_part2(path: &str) -> Result<String, Box<dyn Error>> {
     let mut temp_stacks: Vec<Vec<char>> = vec![];
 
-    let raw_lines = read_lines(path)?;
+    let raw_lines = read_lines(path, false)?;
     let mut lines = raw_lines.iter().peekable();
 
     while lines.peek().is_some() {
