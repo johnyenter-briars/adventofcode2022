@@ -6,7 +6,7 @@ use crate::{
     day3::rucksack::{sum_of_priorities_of_each_group_part2, sum_of_priorities_part1},
     day4::campcleanup::{overlapping_full_pairs_part1, overlapping_part_of_pairs_part2},
     day5::supply_stacks::{supply_stacks_part1, supply_stacks_part2},
-    day6::turning_trouble::find_start_of_message_marker,
+    day6::turning_trouble::find_start_of_message_marker, day7::drive::sum_of_dirs_with_total_size_at_most_part1,
 };
 
 type DayResult = Vec<(&'static str, Result<String, Box<dyn Error>>)>;
@@ -21,7 +21,7 @@ pub fn run_day(choice: DayChoice, use_test_data: bool) -> DayResult {
         DayChoice::Day4 => day4(use_test_data),
         DayChoice::Day5 => day5(use_test_data),
         DayChoice::Day6 => day6(use_test_data),
-        DayChoice::Day7 => todo!(),
+        DayChoice::Day7 => day7(use_test_data),
         DayChoice::Day8 => todo!(),
         DayChoice::Day9 => todo!(),
         DayChoice::Day10 => todo!(),
@@ -119,6 +119,16 @@ fn day6(use_test_data: bool) -> DayResult {
         (
             "chars before the first marker of size 14: ",
             find_start_of_message_marker(path, 14),
+        ),
+    ]
+}
+
+fn day7(use_test_data: bool) -> DayResult {
+    let path = &get_data_path("day7", use_test_data);
+    vec![
+        (
+            "sum of directories with a total size of at most 100000: ",
+            sum_of_dirs_with_total_size_at_most_part1(path, 100000),
         ),
     ]
 }

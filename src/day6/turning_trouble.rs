@@ -1,4 +1,4 @@
-use std::{collections::VecDeque, error::Error, thread::current};
+use std::{collections::VecDeque, error::Error};
 
 use crate::util::reading::read_lines;
 
