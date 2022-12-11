@@ -6,7 +6,7 @@ use crate::{
     day3::rucksack::{sum_of_priorities_of_each_group_part2, sum_of_priorities_part1},
     day4::campcleanup::{overlapping_full_pairs_part1, overlapping_part_of_pairs_part2},
     day5::supply_stacks::{supply_stacks_part1, supply_stacks_part2},
-    day6::turning_trouble::find_start_of_message_marker,
+    day6::turning_trouble::find_start_of_message_marker, day8::treetop::{find_visible_trees, find_max_scenic_score},
 };
 
 type DayResult = Vec<(&'static str, Result<String, Box<dyn Error>>)>;
@@ -22,7 +22,7 @@ pub fn run_day(choice: DayChoice, use_test_data: bool) -> DayResult {
         DayChoice::Day5 => day5(use_test_data),
         DayChoice::Day6 => day6(use_test_data),
         DayChoice::Day7 => todo!(),
-        DayChoice::Day8 => todo!(),
+        DayChoice::Day8 => day8(use_test_data),
         DayChoice::Day9 => todo!(),
         DayChoice::Day10 => todo!(),
         DayChoice::Day11 => todo!(),
@@ -120,6 +120,20 @@ fn day6(use_test_data: bool) -> DayResult {
             "chars before the first marker of size 14: ",
             find_start_of_message_marker(path, 14),
         ),
+    ]
+}
+
+fn day8(use_test_data: bool) -> DayResult {
+    let path = &get_data_path("day8", use_test_data);
+    vec![
+        (
+            "the number of trees visible are: ",
+            find_visible_trees(path),
+        ),
+        (
+            "the max scenic score is: ",
+            find_max_scenic_score(path),
+        )
     ]
 }
 
