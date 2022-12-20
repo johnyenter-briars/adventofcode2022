@@ -7,7 +7,7 @@ use crate::{
     day4::campcleanup::{overlapping_full_pairs_part1, overlapping_part_of_pairs_part2},
     day5::supply_stacks::{supply_stacks_part1, supply_stacks_part2},
     day6::turning_trouble::find_start_of_message_marker,
-    day8::treetop::{find_max_scenic_score, find_visible_trees}, day9::headtail::{find_total_tail_positions, find_total_rope_locations}, day10::crt::sum_of_signal_strengths_at_cycles,
+    day8::treetop::{find_max_scenic_score, find_visible_trees}, day9::headtail::{find_total_tail_positions, find_total_rope_locations}, day10::crt::{sum_of_signal_strengths_at_cycles, draw_crt},
 };
 
 type DayResult = Vec<(&'static str, Result<String, Box<dyn Error>>)>;
@@ -149,9 +149,9 @@ fn day9(use_test_data: bool) -> DayResult {
 fn day10(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day10", use_test_data);
     vec![(
-        "the sum of signal strengts is: ",
+        "\nthe sum of signal strengts is: ",
         sum_of_signal_strengths_at_cycles(path),
-    )]
+    ), ("crt: ", draw_crt(path))]
 }
 
 fn get_data_path(day: &str, use_test_data: bool) -> String {
