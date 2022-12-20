@@ -1,7 +1,7 @@
 use adventofcode2022::util::{day_choice::DayChoice, runnng::run_day};
 
 fn main() {
-    let choice = DayChoice::Day9;
+    let choice = DayChoice::Day10;
     let use_test_data = false;
     println!("Running for day: {:?}, using test data: {}", choice, use_test_data);
     for part in run_day(choice, use_test_data) {

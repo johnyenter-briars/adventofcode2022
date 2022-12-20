@@ -7,7 +7,7 @@ use crate::{
     day4::campcleanup::{overlapping_full_pairs_part1, overlapping_part_of_pairs_part2},
     day5::supply_stacks::{supply_stacks_part1, supply_stacks_part2},
     day6::turning_trouble::find_start_of_message_marker,
-    day8::treetop::{find_max_scenic_score, find_visible_trees}, day9::headtail::{find_total_tail_positions, find_total_rope_locations},
+    day8::treetop::{find_max_scenic_score, find_visible_trees}, day9::headtail::{find_total_tail_positions, find_total_rope_locations}, day10::crt::sum_of_signal_strengths_at_cycles,
 };
 
 type DayResult = Vec<(&'static str, Result<String, Box<dyn Error>>)>;
@@ -25,7 +25,7 @@ pub fn run_day(choice: DayChoice, use_test_data: bool) -> DayResult {
         DayChoice::Day7 => panic!("i failed at day 7 :-("),
         DayChoice::Day8 => day8(use_test_data),
         DayChoice::Day9 => day9(use_test_data),
-        DayChoice::Day10 => todo!(),
+        DayChoice::Day10 => day10(use_test_data),
         DayChoice::Day11 => todo!(),
         DayChoice::Day12 => todo!(),
         DayChoice::Day13 => todo!(),
@@ -143,6 +143,14 @@ fn day9(use_test_data: bool) -> DayResult {
     ),(
         "the number of locations visited by the rope is: ",
         find_total_rope_locations(path),
+    )]
+}
+
+fn day10(use_test_data: bool) -> DayResult {
+    let path = &get_data_path("day10", use_test_data);
+    vec![(
+        "the sum of signal strengts is: ",
+        sum_of_signal_strengths_at_cycles(path),
     )]
 }
 
