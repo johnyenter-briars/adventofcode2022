@@ -1,5 +1,5 @@
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{HashSet},
     error::Error,
     vec,
 };
@@ -46,7 +46,7 @@ pub fn find_total_tail_positions(path: &str) -> Result<String, Box<dyn Error>> {
 }
 
 pub fn find_total_rope_locations(path: &str) -> Result<String, Box<dyn Error>> {
-    let mut start_location = Point { x: 0, y: 0 };
+    let start_location = Point { x: 0, y: 0 };
     let mut rope = vec![start_location; 10];
     let mut points_tail_touches = HashSet::new();
     points_tail_touches.insert(start_location);

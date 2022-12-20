@@ -1,11 +1,11 @@
-use std::{collections::VecDeque, error::Error, thread::current};
+use std::{collections::VecDeque, error::Error};
 
 use crate::util::reading::read_lines;
 
 pub fn find_start_of_message_marker(path: &str, message_length: usize) -> Result<String, Box<dyn Error>> {
     let mut current_characters: VecDeque<char> = VecDeque::new();
     let binding = read_lines(path, true)?.pop().unwrap();
-    let mut input = binding.chars().into_iter();
+    let mut input = binding.chars();
 
     //yea i know this is stupid, but i really wanted to use the `break <value>` syntax
     let mut i = 1;

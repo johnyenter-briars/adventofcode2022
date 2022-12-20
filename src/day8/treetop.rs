@@ -1,4 +1,4 @@
-use std::{error::Error, num};
+use std::{error::Error};
 
 use crate::util::reading::read_lines;
 
@@ -11,8 +11,8 @@ pub fn find_visible_trees(path: &str) -> Result<String, Box<dyn Error>> {
     }
 
     let mut num_visible = 0;
-    for target_y in 0..forest.iter().count() {
-        for target_x in 0..forest[target_y].iter().count() {
+    for target_y in 0..forest.len() {
+        for target_x in 0..forest[target_y].len() {
             let target_value = forest[target_y][target_x];
 
             let is_visible = check_visible_from_top(target_value, target_x, target_y, &forest)
@@ -38,8 +38,8 @@ pub fn find_max_scenic_score(path: &str) -> Result<String, Box<dyn Error>> {
 
     let mut scenic_scores: Vec<i32> = vec![];
 
-    for target_y in 0..forest.iter().count() {
-        for target_x in 0..forest[target_y].iter().count() {
+    for target_y in 0..forest.len() {
+        for target_x in 0..forest[target_y].len() {
             let target_value = forest[target_y][target_x];
             let foo = scenic_score_from_top(target_value, target_x, target_y, &forest)
                 * scenic_score_from_bottom(target_value, target_x, target_y, &forest)
@@ -76,7 +76,7 @@ fn check_visible_from_bottom(
     forest: &Vec<Vec<u32>>,
 ) -> bool {
     let mut sum_eq_greater_trees_ = 0;
-    for y in target_y + 1..forest.iter().count() {
+    for y in target_y + 1..forest.len() {
         let value = forest[y][target_x];
         if value >= target_value {
             sum_eq_greater_trees_ += 1;
@@ -108,7 +108,7 @@ fn check_visible_from_right(
     forest: &Vec<Vec<u32>>,
 ) -> bool {
     let mut sum_eq_greater_trees_ = 0;
-    for x in target_x + 1..forest[target_y].iter().count() {
+    for x in target_x + 1..forest[target_y].len() {
         let value = forest[target_y][x];
         if value >= target_value {
             sum_eq_greater_trees_ += 1;
@@ -141,7 +141,7 @@ fn scenic_score_from_bottom(
     forest: &Vec<Vec<u32>>,
 ) -> i32 {
     let mut num_trees = 0;
-    for y in target_y + 1..forest.iter().count() {
+    for y in target_y + 1..forest.len() {
         let value = forest[y][target_x];
         num_trees += 1;
         if value >= target_value {
@@ -175,7 +175,7 @@ fn scenic_score_from_right(
     forest: &Vec<Vec<u32>>,
 ) -> i32 {
     let mut num_trees = 0;
-    for x in target_x + 1..forest[target_y].iter().count() {
+    for x in target_x + 1..forest[target_y].len() {
         let value = forest[target_y][x];
         num_trees += 1;
         if value >= target_value {
