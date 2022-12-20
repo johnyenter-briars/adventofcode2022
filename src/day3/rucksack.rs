@@ -32,15 +32,13 @@ pub fn sum_of_priorities_of_each_group_part2(path: &str) -> Result<String, Box<d
 pub fn sum_of_priorities_part1(path: &str) -> Result<String, Box<dyn Error>> {
     Ok(read_lines(path, true)?
         .iter()
-        .filter_map(|line| {
+        .map(|line| {
             let (left_sack, right_sack) = line.split_at(line.len() / 2);
 
             let matching_item = get_item_in_both_sacks(left_sack, right_sack)
                 .expect("No matching item found in both sacks??");
 
-            let priority = get_priority_value(matching_item);
-
-            Some(priority)
+            get_priority_value(matching_item)
         })
         .collect::<Vec<usize>>()
         .iter()

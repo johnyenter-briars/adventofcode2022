@@ -33,11 +33,9 @@ pub fn find_start_of_message_marker(path: &str, message_length: usize) -> Result
 
 // this could be a big O(n) algorithm (using a map) if I cared to actually write it out
 fn any_overlap(current_characters: &VecDeque<char>) -> bool {
-    let foo = current_characters
+    current_characters
         .clone()
         .iter()
         .map(|c| current_characters.iter().filter(|c1| c == *c1).count())
-        .any(|num| num > 1);
-
-    foo
+        .any(|num| num > 1)
 }

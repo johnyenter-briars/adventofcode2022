@@ -41,12 +41,12 @@ pub fn find_max_scenic_score(path: &str) -> Result<String, Box<dyn Error>> {
     for target_y in 0..forest.len() {
         for target_x in 0..forest[target_y].len() {
             let target_value = forest[target_y][target_x];
-            let foo = scenic_score_from_top(target_value, target_x, target_y, &forest)
+            let scenic_score = scenic_score_from_top(target_value, target_x, target_y, &forest)
                 * scenic_score_from_bottom(target_value, target_x, target_y, &forest)
                 * scenic_score_from_left(target_value, target_x, target_y, &forest)
                 * scenic_score_from_right(target_value, target_x, target_y, &forest);
 
-            scenic_scores.push(foo);
+            scenic_scores.push(scenic_score);
         }
     }
 
@@ -57,11 +57,11 @@ fn check_visible_from_top(
     target_value: u32,
     target_x: usize,
     target_y: usize,
-    forest: &Vec<Vec<u32>>,
+    forest: &[Vec<u32>],
 ) -> bool {
     let mut sum_eq_greater_trees_ = 0;
-    for y in 0..target_y {
-        let value = forest[y][target_x];
+    for y_row in forest.iter().take(target_y) {
+        let value = y_row[target_x];
         if value >= target_value {
             sum_eq_greater_trees_ += 1;
         }
@@ -73,11 +73,11 @@ fn check_visible_from_bottom(
     target_value: u32,
     target_x: usize,
     target_y: usize,
-    forest: &Vec<Vec<u32>>,
+    forest: &[Vec<u32>],
 ) -> bool {
     let mut sum_eq_greater_trees_ = 0;
-    for y in target_y + 1..forest.len() {
-        let value = forest[y][target_x];
+    for y_row in forest.iter().skip(target_y + 1) {
+        let value = y_row[target_x];
         if value >= target_value {
             sum_eq_greater_trees_ += 1;
         }
@@ -89,7 +89,7 @@ fn check_visible_from_left(
     target_value: u32,
     target_x: usize,
     target_y: usize,
-    forest: &Vec<Vec<u32>>,
+    forest: &[Vec<u32>],
 ) -> bool {
     let mut sum_eq_greater_trees_ = 0;
     for x in 0..target_x {
@@ -105,7 +105,7 @@ fn check_visible_from_right(
     target_value: u32,
     target_x: usize,
     target_y: usize,
-    forest: &Vec<Vec<u32>>,
+    forest: &[Vec<u32>],
 ) -> bool {
     let mut sum_eq_greater_trees_ = 0;
     for x in target_x + 1..forest[target_y].len() {
@@ -121,7 +121,7 @@ fn scenic_score_from_top(
     target_value: u32,
     target_x: usize,
     target_y: usize,
-    forest: &Vec<Vec<u32>>,
+    forest: &[Vec<u32>],
 ) -> i32 {
     let mut num_trees = 0;
     for y in (0..target_y).rev() {
@@ -138,11 +138,11 @@ fn scenic_score_from_bottom(
     target_value: u32,
     target_x: usize,
     target_y: usize,
-    forest: &Vec<Vec<u32>>,
+    forest: &[Vec<u32>],
 ) -> i32 {
     let mut num_trees = 0;
-    for y in target_y + 1..forest.len() {
-        let value = forest[y][target_x];
+    for y_row in forest.iter().skip(target_y + 1) {
+        let value = y_row[target_x];
         num_trees += 1;
         if value >= target_value {
             return num_trees;
@@ -155,7 +155,7 @@ fn scenic_score_from_left(
     target_value: u32,
     target_x: usize,
     target_y: usize,
-    forest: &Vec<Vec<u32>>,
+    forest: &[Vec<u32>],
 ) -> i32 {
     let mut num_trees = 0;
     for x in (0..target_x).rev() {
@@ -172,7 +172,7 @@ fn scenic_score_from_right(
     target_value: u32,
     target_x: usize,
     target_y: usize,
-    forest: &Vec<Vec<u32>>,
+    forest: &[Vec<u32>],
 ) -> i32 {
     let mut num_trees = 0;
     for x in target_x + 1..forest[target_y].len() {
