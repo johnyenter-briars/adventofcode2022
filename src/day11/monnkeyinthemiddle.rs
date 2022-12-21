@@ -1,4 +1,4 @@
-use std::{collections::HashMap, error::Error, vec};
+use std::{collections::HashMap, collections::VecDeque, error::Error, num, vec};
 
 use crate::util::reading::read_lines;
 
@@ -6,9 +6,10 @@ use itertools::Itertools;
 use phf::phf_map;
 use regex::Regex;
 
+#[derive(Debug, Clone)]
 struct Monkey {
     id: u32,
-    items: Vec<u32>,
+    items: VecDeque<u32>,
     operation: fn(u32) -> u32,
     test: fn(u32) -> bool,
     if_true_throw_to: u32,
@@ -21,6 +22,12 @@ static OPERATION_MAP: phf::Map<&'static str, fn(u32) -> u32> = phf_map! {
     "new = old * old" => | old: u32| { old * old },
     "new = old + 3" => | old: u32| { old + 3 },
     "new = old * 19" => | old: u32| { old * 19 },
+    "new = old + 8" => | old: u32| { old + 8 },
+    "new = old * 13" => | old: u32| { old * 13 },
+    "new = old + 7" => | old: u32| { old + 7 },
+    "new = old + 2" => | old: u32| { old + 2 },
+    "new = old + 1" => | old: u32| { old + 1 },
+    "new = old + 4" => | old: u32| { old + 4 },
 };
 
 static TEST_MAP: phf::Map<&'static str, fn(u32) -> bool> = phf_map! {
@@ -28,12 +35,72 @@ static TEST_MAP: phf::Map<&'static str, fn(u32) -> bool> = phf_map! {
     "divisible by 19" => |worried_lvl:u32| {  worried_lvl % 19 == 0 },
     "divisible by 13" => |worried_lvl:u32| {  worried_lvl % 13 == 0 },
     "divisible by 17" => |worried_lvl:u32| {  worried_lvl % 17 == 0 },
+    "divisible by 2" => |worried_lvl:u32| {  worried_lvl % 2 == 0 },
+    "divisible by 5" => |worried_lvl:u32| {  worried_lvl % 5 == 0 },
+    "divisible by 3" => |worried_lvl:u32| {  worried_lvl % 3 == 0 },
+    "divisible by 7" => |worried_lvl:u32| {  worried_lvl % 7 == 0 },
+    "divisible by 11" => |worried_lvl:u32| {  worried_lvl % 11 == 0 },
 };
 
 pub fn level_of_monkey_business(path: &str, rounds: u32) -> Result<String, Box<dyn Error>> {
-    let monkeys = create_monkeys(path)?;
+    let mut monkeys = create_monkeys(path)?;
 
-    Ok("Idk".to_string())
+    let mut monkey_inspect_map: HashMap<u32, u32> = monkeys
+        .iter()
+        .map(|m| (m.id, 0))
+        .collect::<Vec<(u32, u32)>>()
+        .into_iter()
+        .collect();
+
+    for _ in 1..rounds + 1 {
+        for monkey_index in 0..monkeys.len() {
+            loop {
+                let passes_test: (u32, u32) = {
+                    let monkey = &mut monkeys[monkey_index];
+
+                    if let Some(worry_level) = monkey.items.pop_front() {
+                        let idk = monkey_inspect_map.get_mut(&monkey.id).unwrap();
+                        *idk += 1;
+
+                        //Worry level is applied operation.
+                        let mut new_worry_level = (monkey.operation)(worry_level);
+
+                        //Monkey gets bored with item. Worry level is divided by 3
+                        new_worry_level = ((new_worry_level / 3) as f32).floor() as u32;
+
+                        let passes_test = (monkey.test)(new_worry_level);
+
+                        if passes_test {
+                            let id = monkey.if_true_throw_to.clone();
+                            (id, new_worry_level)
+                        } else {
+                            let id = monkey.if_false_throw_to.clone();
+                            (id, new_worry_level)
+                        }
+                    } else {
+                        break;
+                    }
+                };
+                let monkey_to_move_item_to = &mut monkeys
+                    .iter_mut()
+                    .find_or_first(|m| m.id == passes_test.0)
+                    .unwrap();
+
+                monkey_to_move_item_to.items.push_back(passes_test.1);
+            }
+        }
+    }
+
+    let foo = monkey_inspect_map
+        .values()
+        .sorted()
+        .rev()
+        .take(2)
+        .collect::<Vec<&u32>>();
+
+    let idk: u32 = foo.into_iter().product();
+
+    Ok(idk.to_string())
 }
 
 // fn capture_values() -> i32 {
@@ -45,7 +112,7 @@ pub fn level_of_monkey_business(path: &str, rounds: u32) -> Result<String, Box<d
 fn create_monkeys(path: &str) -> Result<Vec<Monkey>, Box<dyn Error>> {
     let mut monkeys: Vec<Monkey> = vec![];
     let mut creating_monkey: u32 = 999;
-    let mut items: Vec<u32> = vec![];
+    let mut items: VecDeque<u32> = VecDeque::new();
     let mut if_true_throw_to = 999;
     let mut if_false_throw_to = 999;
     let mut operation: fn(u32) -> u32 = |_: u32| panic!("default operation");
@@ -68,10 +135,10 @@ fn create_monkeys(path: &str) -> Result<Vec<Monkey>, Box<dyn Error>> {
                 let (_, starting_items) = line.split_once(": ").unwrap();
                 items = starting_items
                     .split(", ")
-                    .collect::<Vec<&str>>()
+                    .collect::<VecDeque<&str>>()
                     .iter()
                     .map(|s| s.parse::<u32>().unwrap())
-                    .collect::<Vec<u32>>();
+                    .collect::<VecDeque<u32>>();
             } else if line.contains("Operation") {
                 let (_, op) = line.split_once(": ").unwrap();
                 operation = *OPERATION_MAP.get(op).unwrap();
