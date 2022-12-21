@@ -2,12 +2,15 @@ use std::error::Error;
 
 use crate::{
     day1::calorie::{find_max_calories, find_sum_of_top_3_calories},
+    day10::crt::{draw_crt, sum_of_signal_strengths_at_cycles},
+    day11::monnkeyinthemiddle::level_of_monkey_business,
     day2::rpc::{find_total_score_part1, find_total_score_part2},
     day3::rucksack::{sum_of_priorities_of_each_group_part2, sum_of_priorities_part1},
     day4::campcleanup::{overlapping_full_pairs_part1, overlapping_part_of_pairs_part2},
     day5::supply_stacks::{supply_stacks_part1, supply_stacks_part2},
     day6::turning_trouble::find_start_of_message_marker,
-    day8::treetop::{find_max_scenic_score, find_visible_trees}, day9::headtail::{find_total_tail_positions, find_total_rope_locations}, day10::crt::{sum_of_signal_strengths_at_cycles, draw_crt},
+    day8::treetop::{find_max_scenic_score, find_visible_trees},
+    day9::headtail::{find_total_rope_locations, find_total_tail_positions},
 };
 
 type DayResult = Vec<(&'static str, Result<String, Box<dyn Error>>)>;
@@ -26,7 +29,7 @@ pub fn run_day(choice: DayChoice, use_test_data: bool) -> DayResult {
         DayChoice::Day8 => day8(use_test_data),
         DayChoice::Day9 => day9(use_test_data),
         DayChoice::Day10 => day10(use_test_data),
-        DayChoice::Day11 => todo!(),
+        DayChoice::Day11 => day11(use_test_data),
         DayChoice::Day12 => todo!(),
         DayChoice::Day13 => todo!(),
         DayChoice::Day14 => todo!(),
@@ -137,21 +140,35 @@ fn day8(use_test_data: bool) -> DayResult {
 
 fn day9(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day9", use_test_data);
-    vec![(
-        "the number locations visited by the tail is: ",
-        find_total_tail_positions(path),
-    ),(
-        "the number of locations visited by the rope is: ",
-        find_total_rope_locations(path),
-    )]
+    vec![
+        (
+            "the number locations visited by the tail is: ",
+            find_total_tail_positions(path),
+        ),
+        (
+            "the number of locations visited by the rope is: ",
+            find_total_rope_locations(path),
+        ),
+    ]
 }
 
 fn day10(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day10", use_test_data);
+    vec![
+        (
+            "\nthe sum of signal strengts is: ",
+            sum_of_signal_strengths_at_cycles(path),
+        ),
+        ("crt: ", draw_crt(path)),
+    ]
+}
+
+fn day11(use_test_data: bool) -> DayResult {
+    let path = &get_data_path("day11", use_test_data);
     vec![(
-        "\nthe sum of signal strengts is: ",
-        sum_of_signal_strengths_at_cycles(path),
-    ), ("crt: ", draw_crt(path))]
+        "The level of monkey business after 20 rounds is: ",
+        level_of_monkey_business(path, 20),
+    )]
 }
 
 fn get_data_path(day: &str, use_test_data: bool) -> String {
