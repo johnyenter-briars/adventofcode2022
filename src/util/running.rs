@@ -165,10 +165,16 @@ fn day10(use_test_data: bool) -> DayResult {
 
 fn day11(use_test_data: bool) -> DayResult {
     let path = &get_data_path("day11", use_test_data);
-    vec![(
-        "The level of monkey business after 20 rounds is: ",
-        level_of_monkey_business(path, 20),
-    )]
+    vec![
+        (
+            "The level of monkey business after 20 rounds is: ",
+            level_of_monkey_business(path, 20),
+        ),
+        (
+            "The level of monkey business after 10000 rounds is: ",
+            level_of_monkey_business(path, 10000),
+        ),
+    ]
 }
 
 fn get_data_path(day: &str, use_test_data: bool) -> String {
